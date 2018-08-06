@@ -1,0 +1,36 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src='vue.js'></script>
+    <title>17</title>
+</head>
+<style>
+</style>
+<body>
+<div id="app">
+    <span v-for="(item,key,index) of obj">{{index}}:{{key}}:{{item}}</br></span>
+    <span v-for="n of 10">{{n}}</span>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        'el': '#app',
+        'methods': {},
+        'data': {
+            obj: {
+                firsrName: 'foo',
+                middleName: 'bar',
+                lastName: 'wqer',
+            },
+                numbers: [ 1, 2, 3, 4, 5 ],
+        },
+        computed: {
+            evenNumbers: function () {
+                return this.numbers.filter(function (number) {
+                    return number % 2 === 0
+                })
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src=vue.js></script>
+    <title>Vue</title>
+</head>
+<style>
+
+    .success {
+        color: green;
+    }
+    .error {
+        color: red;
+    }
+</style>
+<body>
+<div id="app">
+    <li v-for="item in words">
+        <span :style="{color:color,fontSize:size+'px'}">{{item.title}}</span>
+        <span :style="style">{{item.title}}</span>
+        <input v-model="size">
+    </li>
+</div>
+</body>
+<script>
+    var app8 = new Vue({
+        el: '#app',
+        methods: {
+            changeStatus(item) {
+                console.log(item);
+                item.status = !item.status;
+            }
+        },
+        data: {
+            words: [
+                {title: 'hd', status: true},
+                {title: 'dsjfl;asdj;a', status: false},
+                {title: '234123123', status: true},
+                {title: 'hahahahaahah', status: true},
+                {title: 'hd', status: false},
+
+            ],
+            color:'green',
+            size:16,
+            style:{
+                color:'blue'
+            },
+            foo:[]
+        }
+    })
+
+</script>
+</html>

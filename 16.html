@@ -1,0 +1,44 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src='vue.js'></script>
+    <title>v-for的使用</title>
+</head>
+<style>
+</style>
+<body>
+<div id="app">
+    <table border="1">
+        <tr>
+            <th>序号</th>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>标题</th>
+        </tr>
+        <tbody>
+        <tr v-for="(item,key) in news">
+            <td>{{key+1}}</td>
+            <td>{{item.id}}</td>
+            <td>{{name}}</td>
+            <td>{{item.title}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        'el': '#app',
+        'methods': {},
+        'data': {
+            name:'向军老师',
+            // key:0,
+            news: [
+                {id: 66, title: 'houdunren.com'},
+                {id: 21, title: '后盾人'},
+                {id: 13, title: '刘潇洒'},
+            ]
+        }
+    })
+</script>
+</html>

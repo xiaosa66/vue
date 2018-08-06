@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <script src='vue.js'></script>
+    <title>组件的使用</title>
+</head>
+<style>
+</style>
+<body>
+<!--根组件-->
+<div id="app">
+    <!--子组件-->
+    <app-header></app-header>
+    <app-news></app-news>
+    <app-slide></app-slide>
+    <app-class></app-class>
+</div>
+</body>
+<script>
+    // 子组件需要放到根组件之前
+    Vue.component('app-header', {
+            template: '<h1>houdunren.com</h1>'
+        }
+    );
+    // 定义一个变量存放组件
+    var hdnews = {
+        template: '<h2>xixixi.com</h2>'
+
+    }
+    var app = new Vue({
+        'el': '#app',
+        'methods': {},
+        'data': {},
+        components: {
+            'app-news': hdnews,
+            'app-slide':{
+                template:"<h3>slide</h3>"
+            },
+            'app-class':{
+                template:"<h3>origin</h3>"
+            },
+        }
+    })
+</script>
+</html>

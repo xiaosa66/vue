@@ -1,0 +1,32 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src='vue.js'></script>
+    <title>30</title>
+</head>
+<style>
+</style>
+<body>
+<div id="app">
+<div :style='style' @click.left="handle">zheshiyigediv</div>
+<div :style='style' @contextmenu.prevent="handleRight" oncontextmenu="return false">zheshiyigediv</div>
+<div :style='style' @contextmenu="handleRight" oncontextmenu="return false">zheshiyigediv</div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        'el': '#app',
+        'methods': {
+            handle(){
+                alert('lalala');
+            },
+            handleRight(){
+                alert('hahaha');
+            }
+        },
+        'data': {
+            style:{border:'solid 2px blue',height:'300px'}
+        }
+    })
+</script>
+</html>

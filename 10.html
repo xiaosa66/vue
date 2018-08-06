@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src=vue.js></script>
+    <title>Vue</title>
+</head>
+<style>
+    .color {
+        color: red;
+    }
+
+    .font {
+        font-size: 200 px;
+        background-color: aqua;
+    }
+</style>
+<body>
+<div id="app">
+    <input type="text" v-model="word">
+    <h1 :class="style.font">后盾人</h1>
+</div>
+</body>
+<script>
+    var app8 = new Vue({
+        el: '#app',
+        watch: {
+            word(newV, oldV) {
+                console.log(newV + '===>' + oldV);
+                this.result = newV;
+            }
+        },
+        data: {
+            word: '',
+            result: 'massge',
+            style:{
+                font:{color:true,font:true}
+            }
+        }
+    })
+
+</script>
+</html>

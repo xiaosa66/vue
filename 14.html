@@ -1,0 +1,40 @@
+<!DOCage html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src=vue.js></script>
+    <title>14</title>
+</head>
+<style>
+</style>
+<body>
+<div id="app">
+    <span v-if="age<20">20</span>
+    <span v-else-if="age<30">30</span>
+    <span v-else-if="age<40">40</span>
+    <span v-else-if="age<50">50</span>
+    <span v-else-if="age<60">60</span>
+    <input v-model="age">
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        methods: {
+            toggle(loginType){
+                console.log(loginType);
+                if (loginType ==='username'){
+                    loginType = 'email';
+                }else{
+                    loginType ='username';
+                }
+            }
+        },
+        data: {
+            copyright: false,
+            age: '',
+            loginType:'username'
+        }
+    })
+</script>
+</html>

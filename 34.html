@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+    <title>v-for的动态绑定表单</title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          rel="stylesheet">
+</head>
+<body>
+<div id="hdcms">
+    <form action="" class="form-horizontal">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">文章管理</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group" v-for="item in flag">
+                    <label class="col-sm-2 control-label">{{item.title}}</label>
+                    <div class="col-sm-10">
+                        <input type="text" :name="item.name" class="form-control" v-bind:value="item.name">
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <button class="btn btn-primary col-sm-offset-2">保存</button>
+    </form>
+</div>
+<script>
+    var app = new Vue({
+        el: '#hdcms',
+        data: {
+            flag: [
+                {name: 'hot', title: '热门',},
+                {name: 'rocommand', title: '推荐',},
+                {name: 'hello', title: '你好',},
+                {name: 'yes', title: '嗯嗯',},
+                {name: 'foo', title: '无',},
+                {name: 'bar', title: '义',},
+            ],
+            field: {
+                title: '后盾人 人人做后盾',
+                click: 399,
+                url: 'houdunren.com',
+                description: '这是内容接要',
+                draft: false,
+                flag: []
+            }
+        },
+        methods: {}
+    });
+</script>
+</body>
+</html>

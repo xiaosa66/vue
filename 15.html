@@ -1,0 +1,38 @@
+<!DOCage html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src=vue.js></script>
+    <title>15</title>
+</head>
+<style>
+</style>
+<body>
+<div id="app">
+    <!--<template v-if="regType==='mail'">-->
+        <!--邮箱:<input type="text" key="mail">-->
+    <!--</template>-->
+    <!--<template v-else>-->
+        <!--电话:<input type="text" key="phone">-->
+    <!--</template>-->
+    <template v-if="regType==='mail'">
+        邮箱:<input type="text" name="username" key="mail">
+    </template>
+    <template v-else>
+        电话:<input type="text" name="username1" key="mail">
+    </template>
+    <br>
+    <input type="radio" value="mail" v-model="regType">邮箱注册
+    <input type="radio" value="phone" v-model="regType">电话注册
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        methods: {},
+        data: {
+            regType: 'mail',
+        }
+    })
+</script>
+</html>
