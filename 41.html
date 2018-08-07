@@ -1,0 +1,69 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src='vue.js'></script>
+    <title>props验证机制</title>
+</head>
+<style>
+</style>
+<body>
+<div id="app">
+    <hd-news :show-button="1" :news="news"></hd-news>
+
+</div>
+</body>
+<script type="text/x-handlebars-template" id="hdNews">
+    <div>
+        {{showButton}}
+        <li v-if="showButton">zhende</li>
+        <li v-for="(item,v) in news">
+            {{item.title}}
+            <button @click="del(k)">删除</button>
+        </li>
+    </div>
+</script>
+<script>
+    var hdNews = {
+        template: "#hdNews",
+        //-----------!!!!!!!__________________________!!!!!!---------------
+        // 传参需要 props 从父组件接收变量
+        //-----------!!!!!!!__________________________!!!!!!---------------
+        props: {
+
+            showButton: {
+                //使用 type 或者 validator 验证变量
+                // type: [Boolean, Number],
+                validator(v) {
+                    return v === 1 || v === 0;
+                },
+
+                default: true                   // default 为默认值
+            },
+            news: {
+                type: Array,
+                required: true,                // 是否能为空
+
+                default() {                   // default 为默认值
+                    return [{title: 'foo'}, {title: 'bar'},]
+                }
+            }
+        },
+        data() {
+            return {};
+        }
+    }
+    var app = new Vue({
+        'el': '#app',
+        'methods': {},
+        components: {hdNews},
+        'data': {
+            news: [
+                {title: 'hdcms'},
+                {title: 'hdphp'},
+                {title: '草鱼'},
+                {title: '秋刀鱼'},
+            ]
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,50 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src='vue.js'></script>
+    <title>通过子组件呼叫父组件</title>
+</head>
+<style>
+</style>
+<body>
+<div id="app">
+    <hd-shop :goods="goods"></hd-shop>
+    <script type="text/x-handlebars-template" id="hdShop">
+        <table border="1" width="90%">
+            <tr>
+                <th>商品名称</th>
+                <th>商品价格</th>
+                <th>商品数量</th>
+            </tr>
+            <tr v-for="(item,k) in goods">
+                <td>{{item.title}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.count}}</td>
+            </tr>
+        </table>
+    </script>
+    <script>
+        var hdShop = {
+          template:'#hdShop',
+            props:['goods']
+        };
+        var app = new Vue({
+            'el': '#app',
+            'methods': {},
+            components:{hdShop},
+            'data': {
+                goods: [
+                    {title: 'iphone 7', price: '100', count: '2'},
+                    {title: 'iphone 7 plus', price: '120', count: '2'},
+                    {title: 'iphone x', price: '200', count: '2'},
+                ]
+            }
+        })
+    </script>
+</div>
+</body>
+</html>
+
+
+
+

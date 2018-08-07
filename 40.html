@@ -1,0 +1,50 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src='vue.js'></script>
+    <title>父组件向子组件传递参数</title>
+</head>
+<style>
+</style>
+<body>
+<div id="app">
+    <hd-news hd="abc" cms="hello" :show-button="false" :news="news"></hd-news>
+
+</div>
+</body>
+<script type="text/x-handlebars-template" id="hdNews">
+    <div>
+        {{hd}}---{{cms}}---{{showButton}}
+        <li v-if="showButton">zhende</li>
+        <li v-for="(item,v) in news">
+            {{item.title}}
+            <button @click="del(k)">删除</button>
+        </li>
+    </div>
+</script>
+<script>
+    var hdNews = {
+        template: "#hdNews",
+        //-----------!!!!!!!__________________________!!!!!!---------------
+        // 传参需要props从父组件接收变量
+        //-----------!!!!!!!__________________________!!!!!!---------------
+        props: ['hd', 'cms', 'showButton','news'],
+        data() {
+            return {};
+        }
+    }
+    var app = new Vue({
+        'el': '#app',
+        'methods': {},
+        components: {hdNews},
+        'data': {
+            news: [
+                {title: 'hdcms'},
+                {title: 'hdphp'},
+                {title: '草鱼'},
+                {title: '秋刀鱼'},
+            ]
+        }
+    })
+</script>
+</html>
