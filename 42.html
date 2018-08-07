@@ -4,44 +4,64 @@
     <script src='vue.js'></script>
     <title>通过子组件呼叫父组件</title>
 </head>
-<style>
-</style>
 <body>
 <div id="app">
-    <hd-shop :goods="goods"></hd-shop>
-    <script type="text/x-handlebars-template" id="hdShop">
-        <table border="1" width="90%">
-            <tr>
-                <th>商品名称</th>
-                <th>商品价格</th>
-                <th>商品数量</th>
-            </tr>
-            <tr v-for="(item,k) in goods">
-                <td>{{item.title}}</td>
-                <td>{{item.price}}</td>
-                <td>{{item.count}}</td>
-            </tr>
-        </table>
-    </script>
-    <script>
-        var hdShop = {
-          template:'#hdShop',
-            props:['goods']
-        };
-        var app = new Vue({
-            'el': '#app',
-            'methods': {},
-            components:{hdShop},
-            'data': {
-                goods: [
-                    {title: 'iphone 7', price: '100', count: '2'},
-                    {title: 'iphone 7 plus', price: '120', count: '2'},
-                    {title: 'iphone x', price: '200', count: '2'},
-                ]
-            }
-        })
-    </script>
+    <!--父级数据传到子组件 : 在 props 里面声明后写到子组件的标签里就可以-->
+    <hd-shop :lists="goods" @sum="total"></hd-shop>
+    总计:{{totalPrice}}元
 </div>
+<script type="text/x-handlebars-template" id="hdShop">
+    <table border="1" width="90%">
+        <tr>
+            <th>商品名称</th>
+            <th>商品价格</th>
+            <th>商品数量</th>
+        </tr>
+        <tr v-for="item in lists">
+            <td>{{item.title}}</td>
+            <td>{{item.price}}</td>
+            <!--当 count 发生变化时,执行 sum 函数-->
+            <input type="number" v-model="item.count" @blur="sum">
+
+        </tr>
+    </table>
+</script>
+<script>
+    var hdShop = {
+        template: '#hdShop',
+        props: ['lists', 'goods'],
+        methods: {
+            sum(){
+                // 使用 $emit 呼叫父组件的方法
+                this.$emit('sum');
+            }
+        }
+    };
+    var app = new Vue({
+        el: '#app',
+        mounted() {
+            this.total();      //页面 mount 时,执行 total 函数
+        },
+        methods: {
+            total() {
+                this.totalPrice = 0;
+                this.goods.forEach((item) => {
+                    this.totalPrice += item.count * item.price;
+                })
+            }
+        },
+        components: {hdShop},
+        data: {
+            totalPrice: 0,
+            goods: [
+                {title: 'iphone 7', price: '100', count: '2'},
+                {title: 'iphone 7 plus', price: '120', count: '2'},
+                {title: 'iphone x', price: '200', count: '2'},
+            ]
+        }
+    })
+</script>
+
 </body>
 </html>
 
