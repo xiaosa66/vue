@@ -1,0 +1,80 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src='vue.js'></script>
+    <script src='bootstrap.min.js'></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <title>14</title>
+</head>
+<body>
+<div id="app">
+    <bs-panel>
+        <h1 slot="header">hdphp 开源框架</h1>
+        <p slot="body">heiheiehi</p>
+        <bs-input></bs-input>
+    </bs-panel>
+</div>
+<div id="dynamic-fade-demo" class="demo"
+</body>
+<script type="text/x-handlebars-template" id="bsPanel">
+    <div>
+        <slot name="header">this is head</slot>
+        <slot name="body">this is body</slot>
+    </div>
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/core.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+<script>
+    var bsPanel = {template: '#bsPanel'};
+    var app = new Vue({
+        'el': '#app',
+        components: {bsPanel},
+        'methods': {},
+        'data': {}
+    })
+    var demo = new Vue({
+        el: '#dynamic-fade-demo',
+        data: {
+            show: true,
+            fadeInDuration: 1000,
+            fadeOutDuration: 1000,
+            maxFadeDuration: 1500,
+            stop: true
+        },
+        mounted: function () {
+            this.show = false
+        },
+        methods: {
+            beforeEnter: function (el) {
+                el.style.opacity = 0
+            },
+            enter: function (el, done) {
+                var vm = this
+                Velocity(el,
+                    {opacity: 1},
+                    {
+                        duration: this.fadeInDuration,
+                        complete: function () {
+                            done()
+                            if (!vm.stop) vm.show = false
+                        }
+                    }
+                )
+            },
+            leave: function (el, done) {
+                var vm = this
+                Velocity(el,
+                    {opacity: 0},
+                    {
+                        duration: this.fadeOutDuration,
+                        complete: function () {
+                            done()
+                            vm.show = true
+                        }
+                    }
+                )
+            }
+        }
+    })
+</script>
+</html>

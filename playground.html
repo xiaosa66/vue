@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="hdcms">
-    <hd-news :lists="goods" @sum="total"></hd-news>
+    <hd-news :lists.sync="goods" @sum="total"></hd-news>
     总计:{{totalPrice}}元
 </div>
 <script type="text/x-template" id="hdNews">
@@ -36,6 +36,9 @@
     new Vue({
         el: '#hdcms',
         components: {hdNews},
+        computed:{
+
+        },
         mounted(){
             this.total();
         },
