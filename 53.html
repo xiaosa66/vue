@@ -1,0 +1,33 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src='vue.js'></script>
+    <script src='vue-router.js'></script>
+    <title>14</title>
+</head>
+<body>
+<div id="app">
+    <router-link to="/hdphp">HDPHP</router-link>
+    <router-link to="/hdcms">HDCMS</router-link>
+    <router-view></router-view>
+</div>
+
+<script>
+    const hdphp = {
+        template: '<h1>hdphp</h1>'
+    }
+    const hdcms = {
+        template: '<h1>hdcms</h1>'
+    }
+    let routes = [
+        {path: '/hdphp', component: hdphp},
+        {path: '/hdcms', component: hdcms},
+    ];
+    let router = new VueRouter({routes});
+    new Vue({
+        'el': '#app',
+        router
+    })
+</script>
+</body>
+</html>

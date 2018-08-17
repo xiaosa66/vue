@@ -1,0 +1,45 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <title>45</title>
+</head>
+<style>
+</style>
+<script src='vue.js'></script>
+<body>
+<div id="app">
+    <hd-list :data="news">
+        <template scope="v">
+            <li>
+                {{v.filed.title}}
+            </li>
+        </template>
+    </hd-list>
+</div>
+</body>
+<script type="text/x-handlebars-template" id="hdList">
+    <ul>
+        <!--<li v-for="v in data">{{v.title}}</li>-->
+        <slot v-for="v in data" title="hdphp" filed="v"></slot>
+    </ul>
+</script>
+<script>
+    var hdList = {                            //子组件
+        template: "#hdList",
+        props: ['data']
+    };
+    new Vue({                                  //根组件
+        'el': '#app',
+        components: {hdList},
+        'methods': {},
+        'data': {
+            news: [
+                {title: 'hdcms'},
+                {title: '后盾人'},
+                {title: '嘻嘻嘻'},
+                {title: 'foo'},
+            ]
+        }
+    })
+</script>
+</html>

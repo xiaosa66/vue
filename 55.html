@@ -1,0 +1,38 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src='vue.js'></script>
+    <script src='vue-router.js'></script>
+    <title>55</title>
+</head>
+<body>
+<div id="app">
+    <router-link to="/content">内容</router-link>
+    <router-view></router-view>
+</div>
+<script type="text/x-handlebars-template" id="content">
+    <div>
+        {{$route.params.id}}
+        <button @click="show">检测参数</button>
+    </div>
+</script>
+<script>
+    const content = {
+        template: '#content',
+        methods: {
+            show() {
+            console.log(this.$route.params)
+            }
+        }
+    }
+    let routes = [
+        {path: '/content/:id})', component: content},
+    ];
+    let router = new VueRouter({routes});
+    new Vue({
+        'el': '#app',
+        router
+    })
+</script>
+</body>
+</html>

@@ -3,76 +3,77 @@
     <meta charset="utf-8"/>
     <script src='vue.js'></script>
     <script src='bootstrap.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
     <link rel="stylesheet" href="bootstrap.min.css">
     <title>14</title>
 </head>
 <body>
-<div id="app">
-    <bs-panel>
-        <h1 slot="header">hdphp 开源框架</h1>
-        <p slot="body">heiheiehi</p>
-        <bs-input></bs-input>
-    </bs-panel>
+<div id="staggered-list-demo">
+    <input v-model="query">
+    <transition-group
+            name="staggered-fade"
+            tag="ul"
+            v-bind:css="false"
+            v-on:before-enter="beforeEnter"
+            v-on:enter="enter"
+            v-on:leave="leave"
+    >
+        <li v-for="(item, index) in computedList" v-bind:key="item.msg" v-bind:data-index="index">{{ item.msg }}
+        </li>
+    </transition-group>
 </div>
-<div id="dynamic-fade-demo" class="demo"
 </body>
-<script type="text/x-handlebars-template" id="bsPanel">
-    <div>
-        <slot name="header">this is head</slot>
-        <slot name="body">this is body</slot>
-    </div>
-</script>
-<script src="https://cdn.bootcss.com/jquery/3.3.1/core.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+
 <script>
-    var bsPanel = {template: '#bsPanel'};
-    var app = new Vue({
-        'el': '#app',
-        components: {bsPanel},
-        'methods': {},
-        'data': {}
-    })
-    var demo = new Vue({
-        el: '#dynamic-fade-demo',
+    new Vue({
+        el: '#staggered-list-demo',
         data: {
-            show: true,
-            fadeInDuration: 1000,
-            fadeOutDuration: 1000,
-            maxFadeDuration: 1500,
-            stop: true
+            query: '',
+            list: [
+                {msg: '李瑞'},
+                {msg: '刘潇洒'},
+                {msg: '庄哥'},
+                {msg: '刘小安'},
+                {msg: '蒋圆'}
+            ]
         },
-        mounted: function () {
-            this.show = false
+        computed: {
+            computedList: function () {
+                var vm = this;
+                return this.list.filter(function (item) {
+                    return item.msg.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1
+                })
+            }
         },
         methods: {
             beforeEnter: function (el) {
-                el.style.opacity = 0
+                console.log('before inter:', el);
+                el.style.opacity = 0;
+                el.style.height = 0;
             },
             enter: function (el, done) {
-                var vm = this
-                Velocity(el,
-                    {opacity: 1},
-                    {
-                        duration: this.fadeInDuration,
-                        complete: function () {
-                            done()
-                            if (!vm.stop) vm.show = false
-                        }
-                    }
-                )
+                console.log('enter:', el, 'done:', done);
+                var delay = el.dataset.index * 150;
+                setTimeout(function () {
+                    Velocity(
+                        el,
+                        {opacity: 1, height: '1.6em'},
+                        {complete: done}
+                    )
+                }, delay)
             },
             leave: function (el, done) {
-                var vm = this
-                Velocity(el,
-                    {opacity: 0},
-                    {
-                        duration: this.fadeOutDuration,
-                        complete: function () {
-                            done()
-                            vm.show = true
-                        }
-                    }
-                )
+                console.log('leave', el, 'done:', done);
+                var delay = el.dataset.index * 150
+                setTimeout(function () {
+                    Velocity(
+                        el,
+                        {opacity: 0, height: 0},
+                        {complete: done}
+                    )
+                }, delay)
             }
         }
     })

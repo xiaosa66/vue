@@ -1,0 +1,53 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src='vue.js'></script>
+    <script src='vue-router.js'></script>
+    <title>57</title>
+</head>
+<body>
+<div id="app">
+    <router-link to="/content">内容</router-link>
+    <router-view></router-view>
+</div>
+<script type="text/x-handlebars-template" id="content">
+    <div>
+        $route.params.id{{$route.params.id}}    <br>
+        id   {{id}}
+        <button @click="show">检测参数</button>
+    </div>
+</script>
+<script>
+    const content = {
+        template: '#content',
+        data(){
+            return {
+                id:0
+            }
+        },
+        //gouzihanshu
+        mounted(){
+            this.id = this.$route.params.id;
+            if (!this.id){
+                this.id = 1;
+            }
+        },
+        methods: {
+            show() {
+                console.log(this.$route.params)
+            }
+        },
+
+    };
+    let routes = [
+        //问号表示有没有参数都可以
+        {path: '/content/:id?', component: content},
+    ];
+    let router = new VueRouter({routes});
+    new Vue({
+        'el': '#app',
+        router
+    });
+</script>
+</body>
+</html>

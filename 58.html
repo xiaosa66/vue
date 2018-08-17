@@ -1,0 +1,55 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <script src='vue.js'></script>
+    <script src='vue-router.js'></script>
+</head>
+<body>
+<div id="app">
+<router-link to="/content"> 内容</router-link>
+    <router-view></router-view>
+</div>
+<script type="text/x-handlebars-template" id="content">
+    <div>
+
+        dfasdfasdf
+    </div>
+</script>
+<script type="text/x-handlebars-template" id="home">
+    <div>
+        <li v-for="item in news">
+            {{item.id}}
+            {{item.title}}
+        </li>
+    </div>
+</script>
+<script>
+    let list = [
+        {id: 1, title: "hdphp开源免费框架"},
+        {id: 2, title: "黑暗时代立法司法的时间尽快立法"},
+        {id: 3, title: "h撒旦发射点发射点反对封建十六的客服"},
+    ];
+    const home = {
+        template: '#home',
+        data() {
+            return {
+                news:list
+            }
+        }
+    };
+    const content = {
+        template: '#content',
+    };
+
+    let routes = [
+        {path: '/', component: home},
+        {path: '/content/:id})', component: content},
+    ];
+    let router = new VueRouter({routes});
+    new Vue({
+        'el': '#app',
+        router
+    })
+</script>
+</body>
+</html>
