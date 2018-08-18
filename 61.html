@@ -13,7 +13,8 @@
 <script type="text/x-template" id="home">
     <div>
         <li v-for="item in news">
-            <router-link :to="{name:'content',params:{id:item.id}}">{{item.title}}</router-link>
+            <!--<router-link :to="{name:'content',params:{id:item.id}}">{{item.title}}</router-link>-->
+            <a href="" @click.prevent="handleNav(item.id)">{{item.title}}</a>
         </li>
         <router-view></router-view>
     </div>
@@ -24,7 +25,8 @@
         <p>
             {{field.content}}
         </p>
-        <router-link to="/">返回首页</router-link>
+        <!--<router-link to="/">返回首页</router-link>-->
+        <a href="" @click.prevent="back()">返回首页a</a>
     </div>
 </script>
 <script>
@@ -39,7 +41,15 @@
             return {
                 news: list
             }
-        }
+        },
+        methods: {
+            handleNav(e){
+                console.log(e);
+                // this.$router.push(url);
+                // const url = {path:'/content/'+e};
+                this.$router.replace({name:'content',params:{id:e}});
+            }
+        },
     };
     const content = {
         template: '#content',
@@ -64,15 +74,15 @@
                         this.field = list[k];
                     }
                 }
+            },
+            back(){
+               this.$router.handleNav(-1);
             }
         }
     };
     let routes = [
-        {
-            path: '/', component: home, children: [
-                {path: '/content/:id', component: content, name: 'content'},
-            ]
-        },
+        {path: '/', component: home},
+        {path: '/content/:id', component: content, name: 'content'}
     ];
     //要把组件交给路由器
     let router = new VueRouter({routes});
