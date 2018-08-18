@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+</head>
+
+<body>
+<div id="app">
+    <router-view></router-view>
+</div>
+<script type="text/x-template" id="home">
+    <div>
+        <li v-for="item in news">
+            <router-link :to="{name:'content',params:{id:item.id}}">{{item.title}}</router-link>
+        </li>
+        <router-view></router-view>
+    </div>
+</script>
+<script type="text/x-handlebars-template" id="content">
+    <div>
+        <h1>{{field.title}}-{{field.id}}</h1>
+        <p>
+            {{field.content}}
+        </p>
+        <router-link to="/">返回首页</router-link>
+    </div>
+</script>
+<script>
+    var list = [
+        { id: 1, title: "hdphp开源免费框架", content: "hdphp开源免费框架neironga....." },
+        { id: 2, title: "黑暗时代立法司法的时间尽快立法", content: "黑暗时代立法司法的时间尽快立法nwironga..." },
+        { id: 3, title: "h撒旦发射点发射点反对封建十六的客服", content: "h撒旦发射点发射点反对封建十六的客服 neironga..." }
+    ];
+    const home = {
+        template: '#home',
+        data() {
+            return {
+                news: list
+            }
+        }
+    };
+    const content = {
+        template: '#content',
+        data() {
+            return {
+                field: {}
+            }
+        },
+        mounted() {
+            var id = this.$route.params.id;
+            for (let k = 0; k < list.length; k++) {
+                if (list[k].id == id) {
+                    this.field = list[k];
+                }
+            }
+        }
+    };
+    let routes = [
+        {
+            path: '/', component: home, children: [
+                { path: '/content/:id', component: content, name: 'content' },
+            ]
+        },
+    ];
+    //要把组件交给路由器
+    let router = new VueRouter({ routes });
+    new Vue({
+        el: '#app',
+        router
+    });
+</script>
+</body>
+
+</html>

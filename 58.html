@@ -6,13 +6,11 @@
 </head>
 <body>
 <div id="app">
-<router-link to="/content"> 内容</router-link>
+    <router-link to="/content"> 内容</router-link>
     <router-view></router-view>
 </div>
 <script type="text/x-handlebars-template" id="content">
     <div>
-
-        dfasdfasdf
     </div>
 </script>
 <script type="text/x-handlebars-template" id="home">
@@ -33,7 +31,7 @@
         template: '#home',
         data() {
             return {
-                news:list
+                news: list
             }
         }
     };
