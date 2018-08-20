@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+</head>
+
+<body>
+<div id="app">
+    <router-view></router-view>
+    <router-view class="news" name="news"></router-view>
+    <router-view class="slide" name="slide"></router-view>
+</div>
+<script type="text/x-template" id="menu">
+    <div>
+        <a href="">后盾人</a>
+        <a href="">后盾网</a>
+    </div>
+</script>
+<script type="text/x-handlebars-template" id="news">
+    <div>
+        <li v-for="item in news">
+            {{item.title}}--------{{item.content}}
+        </li>
+    </div>
+</script>
+<script type="text/x-handlebars-template" id="slide">
+    <div>
+        <li v-for="item in slideData">
+            {{item.title}}--------{{item.content}}
+        </li>
+    </div>
+</script>
+<script>
+
+    const menu = {
+        template: '#menu',
+    };
+    const news = {
+        template: '#news',
+        data() {
+            return {
+                news: [
+                    {title: 'hdr', content: 'hdr-content'},
+                    {title: 'dsla;fk', content: 'hdr-fdsadcontent'},
+                    {title: 'dsfasdf', content: 'hdr-13251432653634content'},
+                ]
+            }
+        }
+
+    };
+    const slide = {
+        template: '#slide',
+        data() {
+            return {
+                slideData: [
+                    {title: 'hdr', content: 'hdr-content'},
+                    {title: 'dsla;fk', content: 'hdr-fdsadcontent'},
+                    {title: 'dsfasdf', content: 'hdr-13251432653634content'},
+                ]
+            }
+        }
+
+    };
+    let routes = [
+        {
+            path: '/', components: {
+                default: menu,
+                news: news,
+                slide: slide
+            }
+        },
+    ];
+    //要把组件交给路由器
+    let router = new VueRouter({routes});
+    new Vue({
+        el: '#app',
+        router
+    });
+</script>
+</body>
+
+</html>

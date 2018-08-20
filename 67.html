@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <script src="vuex.js"></script>
+    <link rel="stylesheet" href="animate.css">
+</head>
+
+<body>
+<div id="app">
+    <transition enter-active-class="animated zoomIn">
+        <router-view></router-view>
+    </transition>
+</div>
+<script type="text/x-template" id="home">
+    <div>
+        <li v-for="item in news">
+            <!--<router-link :to="{name:'content',params:{id:item.id}}">{{item.title}}</router-link>-->
+            <a href="" @click.prevent="handleNav(item.id)">{{item.title}}</a>
+        </li>
+        <router-view></router-view>
+    </div>
+</script>
+<script type="text/x-handlebars-template" id="content">
+    <div>
+        <h1>{{field.title}}-{{field.id}}</h1>
+        <p>
+            {{field.content}}
+        </p>
+        <!--<router-link to="/">返回首页</router-link>-->
+        <a href="" @click.prevent="back()">返回首页a</a>
+    </div>
+</script>
+<script>
+    var list = [
+        {id: 1, title: "hdphp开源免费框架", content: "hdphp开源免费框架neironga....."},
+        {id: 2, title: "黑暗时代立法司法的时间尽快立法", content: "黑暗时代立法司法的时间尽快立法nwironga..."},
+        {id: 3, title: "h撒旦发射点发射点反对封建十六的客服", content: "h撒旦发射点发射点反对封建十六的客服 neironga..."}
+    ];
+    const home = {
+        template: '#home',
+        data() {
+            return {
+                news: list
+            }
+        },
+        methods: {
+            handleNav(e) {
+                console.log(e);
+                // this.$router.push(url);
+                // const url = {path:'/content/'+e};
+                this.$router.replace({name: 'content', params: {id: e}});
+            }
+        },
+    };
+    const content = {
+        template: '#content',
+        data() {
+            return {
+                field: {}
+            }
+        },
+        watch: {
+            '$route'(to, from) {
+                this.load();
+            }
+        },
+        mounted() {
+            this.load();
+        },
+        methods: {
+            load() {
+                var id = this.$route.params.id;
+                for (let k = 0; k < list.length; k++) {
+                    if (list[k].id === id) {
+                        this.field = list[k];
+                    }
+                }
+            },
+            back() {
+                this.$router.handleNav(-1);
+            }
+        }
+    };
+    let routes = [
+        {path: '/', component: home},
+        {path: '/content/:id', component: content, name: 'content'}
+    ];
+    //要把组件交给路由器
+    let router = new VueRouter({routes});
+    new Vue({
+        el: '#app',
+        router
+    });
+</script>
+</body>
+
+</html>

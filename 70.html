@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>70</title>
+    <script src="vue.js"></script>
+    <script src="vuex.js"></script>
+</head>
+<body>
+<div id="hdcms">
+    <lists></lists>
+</div>
+<script type="text/x-handlebars-template" id="lists">
+    <div>
+        <table border="1" width="90%">
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+                <th>价格</th>
+                <th>数量</th>
+                <th>总计</th>
+            </tr>
+            <tr v-for="item in goods">
+                <td>{{item.id}}</td>
+                <td>{{item.title}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.num}}</td>
+                <td>{{item.totalPrice}}</td>
+
+            </tr>
+        </table>
+        <h1>总价:{{totalPrice}}</h1>
+    </div>
+</script>
+<script>
+    let store = new Vuex.Store({
+        state: {
+            totalPrice: 100,
+            goods: [
+                {id: 1, title: 'iphone7', price: 599, num: 3},
+                {id: 2, title: 'iphone7Plus', price: 699, num: 9},
+                {id: 3, title: 'iphone8', price: 899, num: 5},
+            ],
+        },
+        //获取商品总价
+        getters: {
+            totalPrice: state => {
+                let totalPrice = 0;
+                state.goods.forEach((item) => {
+                    totalPrice += item.num * item.price;
+                })
+                return totalPrice;
+            },
+            goods: state => {
+                state.goods.forEach((item) => {
+                    item.totalPrice = item.num * item.price;
+                });
+                return state.goods;
+            },
+
+        }
+
+    });
+    let lists = {
+        template: '#lists',
+        computed: {
+            totalPrice() {
+                return this.$store.getters.totalPrice;
+            },
+            goods() {
+                return this.$store.getters.goods;
+            }
+        }
+    };
+    new Vue({
+        el: '#hdcms',
+        store,
+        components: {
+            lists
+        }
+    })
+</script>
+</body>
+</html>
